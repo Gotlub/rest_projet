@@ -1,0 +1,2 @@
+RewriteEngine on
+RewriteRule ^([a-zA-Z]+)/({.*})$ contenu.php?table=$1&champs=$2  [B,L]
