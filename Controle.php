@@ -26,12 +26,8 @@ class Controle{
      * @param string $message message correspondant au code
      * @param array $result résultat de la demande 
      */
-    private function reponse($code, $message, $result=""){
-        $retour = array(
-            'code' => $code,
-            'message' => $message,
-            'result' => $result
-        );
+	private function reponse($code, $message, $result=""){
+        $retour = $result;
         echo json_encode($retour, JSON_UNESCAPED_UNICODE);
     }
 

@@ -1,3 +1,7 @@
-RewriteEngine on
-RewriteRule ^$ projet.php?error=404
-RewriteRule ^([a-zA-Z0-9_]+)/({.*})$ projet.php?table=$1&champs=$2 [B,L]
+RewriteEngine On
+RewriteBase /
+# Pour les requêtes simples comme /test
+RewriteRule ^test$ test.php [L]
+
+# Pour les requêtes du type /demande/{...}
+RewriteRule ^([a-zA-Z]+)/(.+)$ projet.php?table=$1&champs=$2 [B,L]

@@ -5,10 +5,10 @@ include_once("ConnexionPDO.php");
  */
 class AccessBDD {
 	
-    public $login="root";
+    public $login="dbu3440502";
     public $mdp="";
-    public $bd="projet";
-    public $serveur="localhost";
+    public $bd="";
+    public $serveur="";
     public $port="3306";	
     public $conn = null;
 
@@ -24,7 +24,6 @@ class AccessBDD {
     }
 
     public function selectLogin($champs){
-        echo "selectLogin";
         // construction de la requête
         $requete = "select * from utilisateur where ";
         foreach ($champs as $key => $value){
@@ -124,7 +123,6 @@ class AccessBDD {
      * @return true si l'ajout a fonctionné
      */
     public function insertDemande($champs){
-        echo "\n" . "coucou insertDemande ";
         if($this->conn != null && $champs != null){
             $requete = "insert into demande (";
             foreach ($champs as $key => $value){
@@ -136,7 +134,6 @@ class AccessBDD {
                 $requete .= ":$key,";
             }
             $requete .= "0);";
-            echo "\n" . $requete;
             return $this->conn->execute($requete, $champs);		
         }else{
             return null;
