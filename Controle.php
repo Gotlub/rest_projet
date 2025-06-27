@@ -26,12 +26,8 @@ class Controle{
      * @param string $message message correspondant au code
      * @param array $result résultat de la demande 
      */
-    private function reponse($code, $message, $result=""){
-        $retour = array(
-            'code' => $code,
-            'message' => $message,
-            'result' => $result
-        );
+	private function reponse($code, $message, $result=""){
+        $retour = $result;
         echo json_encode($retour, JSON_UNESCAPED_UNICODE);
     }
 
@@ -42,7 +38,7 @@ class Controle{
      */
     public function get($table, $champs){
         $result = null;
-        if ($table=="loggin") {
+        if ($table=="login") {
             $result = $this->accessBDD->selectLogin($champs);
         }else if ($table=="contact") {
             //les demandes acceptées -> listUtilisateur lat lon time
@@ -51,6 +47,10 @@ class Controle{
             //les demandes en cours , utilisateur = id_1
             // return list id nom
             $result = $this->accessBDD->selectAsk($champs);
+        }else if ($table=="attente") {
+            //les demandes en cours , utilisateur = id_1
+            // return list id nom
+            $result = $this->accessBDD->selectAttente($champs);
         }else if ($table=="all") {
             //les demandes en cours -> utilisateur = id_1
             $result = $this->accessBDD->selectAll($champs);
@@ -69,8 +69,9 @@ class Controle{
      */
     public function delete($table, $champs){
         $result = null;
-        //TODO
-        if ($result == null || $result == false ){
+        if($table = "demande"){
+            $result = $this->accessBDD->delDemande($champs);
+        }else if ($result == null || $result == false ){
             $this->reponse(400, "requete invalide");
         }else{	
             $this->reponse(200, "OK");
@@ -86,8 +87,7 @@ class Controle{
         $result = null;
         if ($table == "demande"){
             $result = $this->accessBDD->insertDemande($champs);
-        }
-        if ($result == null || $result == false){
+        }else if ($result == null || $result == false){
             $this->reponse(400, "requete invalide");
         }else{	
             $this->reponse(200, "OK");
@@ -106,9 +106,10 @@ class Controle{
         //TODO
         if ($table == "accept"){
             $result = $this->accessBDD->validDemande($champs);
-        if ($result == null || $result == false){
+        }else if ($table == "actu"){
+            $result = $this->accessBDD->validActu($champs);
+        }else if ($result == null || $result == false){
             $this->reponse(400, "requete invalide");
-        }
         }else{	
             $this->reponse(200, "OK");
         }

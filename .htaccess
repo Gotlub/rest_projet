@@ -1,3 +1,4 @@
-RewriteEngine on
-RewriteRule ^$ projet.php?error=404
-RewriteRule ^([a-zA-Z0-9_]+)/({.*})$ projet.php?table=$1&champs=$2 [B,L]
+RewriteEngine On
+RewriteBase /
+RewriteRule ^([a-zA-Z]+)/$ projet.php?table=$1 [B,L]
+RewriteRule ^([a-zA-Z]+)/(.+)$ projet.php?table=$1&champs=$2 [B,L]
