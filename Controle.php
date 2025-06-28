@@ -71,7 +71,8 @@ class Controle{
         $result = null;
         if($table = "demande"){
             $result = $this->accessBDD->delDemande($champs);
-        }else if ($result == null || $result == false ){
+        }
+      	if ($result == null || $result == false ){
             $this->reponse(400, "requete invalide");
         }else{	
             $this->reponse(200, "OK");
@@ -87,7 +88,10 @@ class Controle{
         $result = null;
         if ($table == "demande"){
             $result = $this->accessBDD->insertDemande($champs);
-        }else if ($result == null || $result == false){
+        }else if ($table == "compte"){
+          	$result = $this->accessBDD->insertCompte($champs);
+        }
+      	if ($result == null || $result == false){
             $this->reponse(400, "requete invalide");
         }else{	
             $this->reponse(200, "OK");
@@ -108,7 +112,8 @@ class Controle{
             $result = $this->accessBDD->validDemande($champs);
         }else if ($table == "actu"){
             $result = $this->accessBDD->validActu($champs);
-        }else if ($result == null || $result == false){
+        }
+      	if ($result == null || $result == false){
             $this->reponse(400, "requete invalide");
         }else{	
             $this->reponse(200, "OK");

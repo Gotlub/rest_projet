@@ -80,7 +80,7 @@ class AccessBDD {
     }
 
 
-        public function selectAttente($champs) {
+    public function selectAttente($champs) {
         $param = array(
                 "id" => $champs["id"],
                 "name" => $champs["name"],
@@ -189,13 +189,34 @@ class AccessBDD {
             $requete .= "SELECT :id, :id_1, 0 ";
             $requete .= "from utilisateur u ";
             $requete .= "where u.id = :id and u.password = :password;";
-          	echo $requete;
             return $this->conn->execute($requete, $param);		
         }else{
             return null;
         }
     }
 
+  	 /**
+     * Ajout de l'entitée composée livre dans la bdd
+     *
+     * @param [type] $champs nom et valeur de chaque champs de la ligne
+     * @return true si l'ajout a fonctionné
+     */
+  	public function insertCompte($champs) {
+        echo "coucou";
+        if($this->conn != null && $champs != null) {
+        	$param = array(
+                "name" => $champs["name"],
+                "password" => $champs["password"]
+        	);
+            // construction de la requête
+            $requete = "insert into utilisateur (name, password) ";
+            $requete .= "values (:name, :password);";
+            echo $requete;
+            return $this->conn->execute($requete, $param);		
+        }else{
+            return null;
+        }
+    }
 
     /**
      * modification d'une ligne dans une table
@@ -246,7 +267,6 @@ class AccessBDD {
             $requete .= "join utilisateur u on d.id_1 = u.id ";
             $requete .= "set accept = 1";				
             $requete .= " where d.id_1 = :id and d.id = :id_1 and u.password = :password;";
-			echo $requete;
             return $this->conn->execute($requete, $param);		
         }else{
             return null;
@@ -273,7 +293,6 @@ class AccessBDD {
             $requete = "update utilisateur ";
             $requete .= "set lat = :lat, lon = :lon, time_ = :time_ ";				
             $requete .= "where id = :id and password = :password";
-			echo $requete;
             return $this->conn->execute($requete, $param);		
         }else{
             return null;
